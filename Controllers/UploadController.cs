@@ -13,24 +13,28 @@ namespace WebApplication.Controllers
     [Route("api/[controller]")]
     public class UploadController : Controller
     {
-        private IHostingEnvironment _environment;
+        [HttpPost("UploadFiles")]
+        public async Task<IActionResult> Index(IList<IFormFile> files)
+        {
+            long size = files[0].Length;
 
-        public UploadController(IHostingEnvironment environment)
-        {
-            _environment = environment;
-        }
-        [HttpPost]
-        public async Task<IActionResult> Index(IFormFile file)
-        {
-            var uploads = Path.Combine(_environment.WebRootPath, "uploads");
-            if (file.Length > 0)
+            // full path to file in temp location
+            var filePath = "Uploads/" + files[0].FileName;
+
+            string DecodeResult = "";
+            if (files[0].Length > 0)
             {
-                using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
+                using (var stream = new FileStream(filePath, FileMode.Create))
                 {
-                    await file.CopyToAsync(fileStream);
+                    await files[0].CopyToAsync(stream);
+                    DecodeResult = "File" + stream.Name + " is "+ new Decode().CheckIntegrity(stream);
                 }
             }
-            return View();
+
+            // process uploaded files
+            // Don't rely on or trust the FileName property without validation.
+
+            return Ok(new { size, filePath, DecodeResult});
         }
     }
 }
