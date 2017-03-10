@@ -5,9 +5,21 @@ namespace Models
 {
     public class HeartRateLogger
     {
-        protected IList<int> HeartRates {get;}
+        public IList<int> HeartRates {get;}
 
-        public HeartRateLogger() 
+        private static HeartRateLogger Instance = null;
+
+        public  static HeartRateLogger GetInstance()
+        {
+            if (Instance == null)
+            {
+                return new HeartRateLogger();
+            }
+            else {
+                return Instance;
+            }
+        }
+        private HeartRateLogger() 
         {
             HeartRates = new List<int>();
         }
