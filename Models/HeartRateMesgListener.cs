@@ -4,23 +4,13 @@ using Dynastream.Fit;
 
 namespace Models
 {
-    public class HeartRateMesgListener : IMesgBroadcastPlugin
+    public class HeartRateMesgListener
     {
-        private HeartRateLogger logger {get;set;}
-
-        public HeartRateMesgListener(HeartRateLogger logger) 
+        public static void HrMesgEvent(object sender, MesgEventArgs e)
         {
-            this.logger = logger;
-        }
-
-        void IMesgBroadcastPlugin.OnBroadcast(object sender, MesgBroadcastEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        void IMesgBroadcastPlugin.OnIncomingMesg(object sender, IncomingMesgEventArgs ev)
-        {
-            Mesg mesg = ev.mesg;
+            Console.WriteLine("got an HR mesg");
+            HeartRateLogger logger = HeartRateLogger.GetInstance();
+            Mesg mesg = e.mesg;
             if (mesg.Num.Equals(MesgNum.Record))
             {
                 Field HeartRateField = mesg.GetField(RecordMesg.FieldDefNum.HeartRate);
