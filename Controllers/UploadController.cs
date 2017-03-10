@@ -7,6 +7,7 @@ using Dynastream.Fit;
 using System.IO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
+using Models;
 
 namespace WebApplication.Controllers
 {
@@ -16,18 +17,19 @@ namespace WebApplication.Controllers
         [HttpPost("UploadFiles")]
         public async Task<IActionResult> Index(IList<IFormFile> files)
         {
+            if (files == null) return null;
             long size = files[0].Length;
 
             // full path to file in temp location
             var filePath = "Uploads/" + files[0].FileName;
 
             string DecodeResult = "";
-            if (files[0].Length > 0)
+            if (size > 0)
             {
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
                     await files[0].CopyToAsync(stream);
-                    DecodeResult = "File" + stream.Name + " is "+ new Decode().CheckIntegrity(stream);
+                    DecodeResult = TSSTool.GetInstance().DecodeFile(stream);
                 }
             }
 
