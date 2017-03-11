@@ -26,7 +26,7 @@ namespace WebApplication.Controllers
             Boolean DecodeResult;
             if (size > 0)
             {
-                using (var stream = new FileStream(FilePath, FileMode.OpenOrCreate))
+                using (var stream = new FileStream(FilePath, FileMode.Create))
                 {
                     await file.CopyToAsync(stream);
                 }
