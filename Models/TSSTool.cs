@@ -30,13 +30,15 @@ namespace Models
 
             //add HrMesg listener HeartRateMesgListener
             Broadcaster.RecordMesgEvent += HeartRateMesgListener.MesgEvent;
+            Broadcaster.SessionMesgEvent += ElapsedTimeMesgListener.MesgEvent;
 
             Boolean status = decoder.IsFIT(fitSource);
             status &= decoder.CheckIntegrity(fitSource);
 
+            Boolean DecodeResult;
             if (status)
             {
-                return decoder.Read(fitSource);
+                DecodeResult = decoder.Read(fitSource);
             }
             else{
                 try
@@ -45,20 +47,22 @@ namespace Models
                         if (decoder.InvalidDataSize)
                         {
                             Console.WriteLine("Invalid Size Detected, Attempting to decode...");
-                            return decoder.Read(fitSource);
+                            DecodeResult = decoder.Read(fitSource);
                         }
                         else
                         {
                             Console.WriteLine("Attempting to decode by skipping the header...");
-                            return decoder.Read(fitSource, DecodeMode.InvalidHeader);
+                            DecodeResult = decoder.Read(fitSource, DecodeMode.InvalidHeader);
                         }
                     }
                     catch (FitException ex)
                     {
                         Console.WriteLine("DecodeDemo caught FitException: " + ex.Message);
-                        return false;
+                        DecodeResult = false;
                     }
             }
+            fitSource.Dispose();
+            return DecodeResult;
            
         }
 
