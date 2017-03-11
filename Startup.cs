@@ -25,7 +25,7 @@ namespace WebApplication
             if (env.IsDevelopment())
             {
                 // For more details on using the user secret store see https://go.microsoft.com/fwlink/?LinkID=532709
-                builder.AddUserSecrets();
+                builder.AddUserSecrets("aspnet-WebApplication-0799fe3e-6eaf-4c5f-b40e-7c6bfd5dfa9a");
             }
 
             builder.AddEnvironmentVariables();
