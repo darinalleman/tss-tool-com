@@ -7,24 +7,21 @@ namespace Models
     {
         public IList<int> HeartRates {get;}
 
-        private volatile static HeartRateLogger Instance;
+        static readonly HeartRateLogger instance = new HeartRateLogger();
 
-        public static HeartRateLogger GetInstance()
+        public static HeartRateLogger Instance
         {
-            object lockingObject = new object();
-            if (Instance == null)
+            get
             {
-                lock (lockingObject)
-                {
-                    if (Instance == null)
-                    {
-                        Instance = new HeartRateLogger();
-                    }
-                }
+                return instance;
             }
-            return Instance;
         }
-        private HeartRateLogger() 
+
+        static HeartRateLogger() 
+        {     
+        }
+
+        HeartRateLogger()
         {
             HeartRates = new List<int>();
         }
