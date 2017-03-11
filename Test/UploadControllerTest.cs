@@ -22,6 +22,7 @@ namespace Test
 
             FileMock.Setup(m => m.OpenReadStream()).Returns(FitFile);
             FileMock.Setup(m => m.FileName).Returns("TestFile2-MTB.fit");
+            FileMock.Setup(m => m.Length).Returns(1);
             Files.Add(FileMock.Object);
             Assert.IsType<Microsoft.AspNetCore.Mvc.OkObjectResult>(await controller.Index(Files));
         }

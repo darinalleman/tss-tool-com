@@ -32,7 +32,7 @@ namespace WebApplication.Controllers
                 }
             }
 
-            DecodeResult = TSSTool.GetInstance().DecodeFile(new FileStream(FilePath, FileMode.OpenOrCreate));
+            DecodeResult = TSSTool.GetInstance().DecodeFile(new FileStream(FilePath, FileMode.Open));
             // process uploaded files
             // Don't rely on or trust the FileName property without validation.
             String result = "Success?= " + DecodeResult;
