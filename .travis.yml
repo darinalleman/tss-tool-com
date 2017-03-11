@@ -4,4 +4,4 @@ sudo: required
 mono: none
 dotnet: 1.0.1
 script:
-  - dotnet restore && dotnet build **/project.json && dotnet test
+  - dotnet restore && dotnet build *.csproj && dotnet test
