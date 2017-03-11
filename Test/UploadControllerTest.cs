@@ -18,7 +18,7 @@ namespace Test
 
             List<IFormFile> Files = new List<IFormFile>();
             Mock<IFormFile> FileMock = new Mock<IFormFile>();
-            Stream FitFile = new FileStream("Assets/TestFile2-MTB.fit",FileMode.Open);
+            Stream FitFile = new FileStream("../../../Assets/TestFile2-MTB.fit",FileMode.Open);
 
             FileMock.Setup(m => m.OpenReadStream()).Returns(FitFile);
             FileMock.Setup(m => m.FileName).Returns("TestFile2-MTB.fit");

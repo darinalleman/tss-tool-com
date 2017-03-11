@@ -21,7 +21,7 @@ namespace WebApplication.Controllers
             if (file == null) return null;
             long size = file.Length;
             // full path to file in temp location
-            var FilePath = "Uploads/" + file.FileName;
+            var FilePath = "../../../Uploads/" + file.FileName;
 
             Boolean DecodeResult;
             String result = "";
@@ -36,7 +36,6 @@ namespace WebApplication.Controllers
                 result = "Success?= " + DecodeResult;
             }
 
-            
             return Ok(new { size, FilePath, result });
         }
     }

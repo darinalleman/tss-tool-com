@@ -17,7 +17,7 @@ namespace Test
         public void TestDecodeWithFile()
         {
            TSSTool tool = TSSTool.GetInstance();
-           FileStream FitFile = new FileStream("Assets/TestFile-KG.fit", FileMode.Open);
+           FileStream FitFile = new FileStream("../../../Assets/TestFile-KG.fit", FileMode.Open);
            Assert.True(tool.DecodeFile(FitFile));
         }
 
