@@ -17,26 +17,26 @@ namespace WebApplication.Controllers
         [HttpPost("UploadFiles")]
         public async Task<IActionResult> Index(IList<IFormFile> files)
         {
-            if (files == null) return null;
-            long size = files[0].Length;
-
+            IFormFile file = files.First();
+            if (file == null) return null;
+            long size = file.Length;
             // full path to file in temp location
-            var filePath = "Uploads/" + files[0].FileName;
+            var FilePath = "Uploads/" + file.FileName;
 
-            string DecodeResult = "";
+            Boolean DecodeResult;
             if (size > 0)
             {
-                using (var stream = new FileStream(filePath, FileMode.Create))
+                using (var stream = new FileStream(FilePath, FileMode.OpenOrCreate))
                 {
-                    await files[0].CopyToAsync(stream);
-                    DecodeResult = TSSTool.GetInstance().DecodeFile(stream);
+                    await file.CopyToAsync(stream);
                 }
             }
 
+            DecodeResult = TSSTool.GetInstance().DecodeFile(new FileStream(FilePath, FileMode.OpenOrCreate));
             // process uploaded files
             // Don't rely on or trust the FileName property without validation.
-
-            return Ok(new { size, filePath, DecodeResult});
+            String result = "Success?= " + DecodeResult;
+            return Ok(new { size, FilePath, result });
         }
     }
 }

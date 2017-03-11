@@ -7,17 +7,22 @@ namespace Models
     {
         public IList<int> HeartRates {get;}
 
-        private static HeartRateLogger Instance = null;
+        private volatile static HeartRateLogger Instance;
 
-        public  static HeartRateLogger GetInstance()
+        public static HeartRateLogger GetInstance()
         {
+            object lockingObject = new object();
             if (Instance == null)
             {
-                return new HeartRateLogger();
+                lock (lockingObject)
+                {
+                    if (Instance == null)
+                    {
+                        Instance = new HeartRateLogger();
+                    }
+                }
             }
-            else {
-                return Instance;
-            }
+            return Instance;
         }
         private HeartRateLogger() 
         {
@@ -27,7 +32,6 @@ namespace Models
         public void Log(int HeartRate)
         {
             HeartRates.Add(HeartRate);
-            Console.WriteLine("Added HR: " + HeartRate);
         }
     }
 }

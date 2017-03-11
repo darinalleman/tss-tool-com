@@ -6,21 +6,15 @@ namespace Models
 {
     public class HeartRateMesgListener
     {
-        public static void HrMesgEvent(object sender, MesgEventArgs e)
+        public static void MesgEvent(object sender, MesgEventArgs e)
         {
-            Console.WriteLine("got an HR mesg");
-            HeartRateLogger logger = HeartRateLogger.GetInstance();
-            Mesg mesg = e.mesg;
-            if (mesg.Num.Equals(MesgNum.Record))
+            if (e.mesg.GetField(RecordMesg.FieldDefNum.HeartRate) != null)
             {
-                Field HeartRateField = mesg.GetField(RecordMesg.FieldDefNum.HeartRate);
-                
-                if (HeartRateField != null)
-                {
-                    int HeartRate = (int) HeartRateField.GetValue();
-                    logger.Log(HeartRate);
-                }
-            }
+                HeartRateLogger logger = HeartRateLogger.GetInstance();
+                Field HeartRateField = e.mesg.GetField(RecordMesg.FieldDefNum.HeartRate);
+                int HeartRate = Convert.ToInt32(HeartRateField.GetValue());
+                logger.Log(HeartRate);
+            }   
         }
     }
 }
