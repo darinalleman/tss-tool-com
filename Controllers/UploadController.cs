@@ -24,18 +24,19 @@ namespace WebApplication.Controllers
             var FilePath = "Uploads/" + file.FileName;
 
             Boolean DecodeResult;
+            String result = "";
+
             if (size > 0)
             {
                 using (var stream = new FileStream(FilePath, FileMode.Create))
                 {
                     await file.CopyToAsync(stream);
                 }
+                DecodeResult = TSSTool.GetInstance().DecodeFile(new FileStream(FilePath, FileMode.Open));
+                result = "Success?= " + DecodeResult;
             }
 
-            DecodeResult = TSSTool.GetInstance().DecodeFile(new FileStream(FilePath, FileMode.Open));
-            // process uploaded files
-            // Don't rely on or trust the FileName property without validation.
-            String result = "Success?= " + DecodeResult;
+            
             return Ok(new { size, FilePath, result });
         }
     }
