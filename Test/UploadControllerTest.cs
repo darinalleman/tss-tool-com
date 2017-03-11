@@ -1,0 +1,31 @@
+using Xunit;
+using System.IO;
+using WebApplication.Controllers;
+using Microsoft.AspNetCore.Http;  
+using System.Collections.Generic;
+using Moq;
+
+
+
+namespace Test
+{
+    public class UploadControllerTest
+    {
+        [Fact]
+        public async void TestFileInput()
+        {
+            UploadController controller = new UploadController();
+
+            List<IFormFile> Files = new List<IFormFile>();
+            Mock<IFormFile> FileMock = new Mock<IFormFile>();
+            Stream FitFile = new FileStream("Assets/TestFile2-MTB.fit",FileMode.Open);
+
+            FileMock.Setup(m => m.OpenReadStream()).Returns(FitFile);
+            FileMock.Setup(m => m.FileName).Returns("TestFile2-MTB.fit");
+            Files.Add(FileMock.Object);
+            Assert.IsType<Microsoft.AspNetCore.Mvc.OkObjectResult>(await controller.Index(Files));
+        }
+
+
+    }
+}

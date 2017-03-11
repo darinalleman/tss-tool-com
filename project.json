@@ -1,11 +1,14 @@
 {
   "userSecretsId": "aspnet-WebApplication-0799fe3e-6eaf-4c5f-b40e-7c6bfd5dfa9a",
-
   "dependencies": {
     "Microsoft.NETCore.App": {
       "version": "1.1.0",
       "type": "platform"
     },
+    "Xunit": "2.2.0-beta2-build3300",
+    "dotnet-test-xunit": "2.2.0-preview2-build1029",
+    "xunit.runner.console": "2.1.0",
+    "xunit.runner.visualstudio": "2.1.0",
     "Microsoft.AspNetCore.Authentication.Cookies": "1.0.0",
     "Microsoft.AspNetCore.Diagnostics": "1.0.0",
     "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "1.0.0",
@@ -38,9 +41,9 @@
     "Microsoft.VisualStudio.Web.CodeGenerators.Mvc": {
       "version": "1.0.0-preview2-update1",
       "type": "build"
-    }
+    },
+    "Moq": "4.7.1"
   },
-
   "tools": {
     "Microsoft.AspNetCore.Razor.Tools": {
       "version": "1.0.0-preview2-final",
@@ -69,7 +72,6 @@
       ]
     }
   },
-
   "frameworks": {
     "netcoreapp1.1": {
       "imports": [
@@ -79,19 +81,16 @@
       ]
     }
   },
-
   "buildOptions": {
     "debugType": "portable",
     "emitEntryPoint": true,
     "preserveCompilationContext": true
   },
-
   "runtimeOptions": {
     "configProperties": {
       "System.GC.Server": true
     }
   },
-
   "publishOptions": {
     "include": [
       "wwwroot",
@@ -100,13 +99,19 @@
       "web.config"
     ]
   },
-
   "scripts": {
-    "prepublish": [ "npm install", "bower install", "gulp clean", "gulp min" ],
-    "postpublish": [ "dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%" ]
+    "prepublish": [
+      "npm install",
+      "bower install",
+      "gulp clean",
+      "gulp min"
+    ],
+    "postpublish": [
+      "dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%"
+    ]
   },
-
   "tooling": {
     "defaultNamespace": "WebApplication"
-  }
+  },
+  "testRunner": "xunit"
 }
