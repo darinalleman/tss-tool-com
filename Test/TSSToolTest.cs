@@ -7,6 +7,11 @@ namespace Test
 {
     public class TSSToolTest
     {
+        public TSSToolTest()
+        {
+            Environment.SetEnvironmentVariable("TestMode", "true");
+        }
+        
         [Fact]
         public void TestInit()
         {

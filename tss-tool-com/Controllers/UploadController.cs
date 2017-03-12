@@ -17,11 +17,21 @@ namespace WebApplication.Controllers
         [HttpPost("UploadFiles")]
         public async Task<IActionResult> Index(IList<IFormFile> files)
         {
+
             IFormFile file = files.First();
             if (file == null) return null;
             long size = file.Length;
-            // full path to file in temp location
-            var FilePath = "../../../Uploads/" + file.FileName;
+            var FilePath = "";
+            
+            //In test mode gotta access it based on the /bin/debug/ run location..
+            if (Convert.ToBoolean(Environment.GetEnvironmentVariable("TestMode")))
+            {
+                FilePath= "../../../Uploads/" + file.FileName;
+            }
+            else{
+                FilePath = "Uploads/" + file.FileName;
+            }
+           
 
             Boolean DecodeResult;
             String result = "";

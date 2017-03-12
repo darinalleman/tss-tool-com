@@ -4,6 +4,7 @@ using WebApplication.Controllers;
 using Microsoft.AspNetCore.Http;  
 using System.Collections.Generic;
 using Moq;
+using System;
 
 
 
@@ -11,6 +12,10 @@ namespace Test
 {
     public class UploadControllerTest
     {
+        public UploadControllerTest()
+        {
+            Environment.SetEnvironmentVariable("TestMode", "True");
+        }
         [Fact]
         public async void TestFileInput()
         {
