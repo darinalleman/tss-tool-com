@@ -10,7 +10,7 @@ namespace Models
         {
             if (e.mesg.GetField(RecordMesg.FieldDefNum.HeartRate) != null)
             {
-                HeartRateLogger logger = HeartRateLogger.GetInstance();
+                HeartRateLogger logger = HeartRateLogger.Instance;
                 Field HeartRateField = e.mesg.GetField(RecordMesg.FieldDefNum.HeartRate);
                 int HeartRate = Convert.ToInt32(HeartRateField.GetValue());
                 logger.Log(HeartRate);
