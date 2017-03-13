@@ -40,7 +40,6 @@ namespace Test
         [Fact]
         public void TestDecodeWithFileSavesElapsedTime()
         {
-            Console.WriteLine("Testing Elapsed time...");
             TSSTool tool = TSSTool.GetInstance();
             FileStream FitFile = new FileStream("../../../Assets/TestFile-KG.fit", FileMode.Open);
             Assert.True(tool.DecodeFile(FitFile));
