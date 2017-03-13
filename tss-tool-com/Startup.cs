@@ -54,6 +54,7 @@ namespace WebApplication
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+            app.UseDefaultFiles();
 
             if (env.IsDevelopment())
             {
@@ -74,14 +75,7 @@ namespace WebApplication
 
             app.UseMvc(routes =>
             {
-                 routes.MapRoute(
-                    name: "upload",
-                    template: "{controller=Upload}/{action=Index}/{id?}"
-                );
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}"
-                );
+
             });
         }
     }

@@ -37,5 +37,10 @@ namespace WebApplication.Controllers
         {
             return View();
         }
+
+        public IActionResult Aurelia()
+        {
+            return View();
+        }
     }
 }
