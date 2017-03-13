@@ -11,42 +11,50 @@ using Models;
 
 namespace WebApplication.Controllers
 {
-    [Route("api/[controller]")]
     public class UploadController : Controller
     {
-        [HttpPost("UploadFiles")]
-        public async Task<IActionResult> Index(IList<IFormFile> files)
+        [HttpPost, Route("api/Upload")]
+        public async Task<IActionResult> Upload()
         {
-
-            IFormFile file = files.First();
-            if (file == null) return null;
-            long size = file.Length;
-            var FilePath = "";
-            
-            //In test mode gotta access it based on the /bin/debug/ run location..
-            if (Convert.ToBoolean(Environment.GetEnvironmentVariable("TestMode")))
-            {
-                FilePath= "../../../Uploads/" + file.FileName;
-            }
-            else{
-                FilePath = "Uploads/" + file.FileName;
-            }
-           
-
-            Boolean DecodeResult;
-            String result = "";
-
-            if (size > 0)
-            {
-                using (var stream = new FileStream(FilePath, FileMode.Create))
+            try{
+                var form = await Request.ReadFormAsync();
+                var file = form.Files.First();
+                if (file == null) return null;
+                long size = file.Length;
+                var FilePath = "";
+                
+                //In test mode gotta access it based on the /bin/debug/ run location..
+                if (Convert.ToBoolean(Environment.GetEnvironmentVariable("TestMode")))
                 {
-                    await file.CopyToAsync(stream);
+                    FilePath= "../../../Uploads/" + file.FileName;
                 }
-                DecodeResult = TSSTool.GetInstance().DecodeFile(new FileStream(FilePath, FileMode.Open));
-                result = "Success?= " + DecodeResult;
-            }
+                else{
+                    FilePath = "Uploads/" + file.FileName;
+                }
+            
 
-            return Ok(new { size, FilePath, result });
+                Boolean DecodeResult;
+                Boolean result = false;
+
+                if (size > 0)
+                {
+                    using (var stream = new FileStream(FilePath, FileMode.Create))
+                    {
+                        await file.CopyToAsync(stream);
+                    }
+                    DecodeResult = TSSTool.GetInstance().DecodeFile(new FileStream(FilePath, FileMode.Open));
+                    result = DecodeResult;
+                }
+
+                return Ok(new { size, FilePath, result });
+            }
+            catch (Exception ex) {
+                var originalMessage = ex.Message;
+
+                while (ex.InnerException != null)
+                    ex = ex.InnerException;
+                    return BadRequest($"{originalMessage} | {ex.Message}");
+            }
         }
     }
 }
