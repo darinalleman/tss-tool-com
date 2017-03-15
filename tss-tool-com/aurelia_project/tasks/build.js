@@ -36,7 +36,7 @@ let watch = function() {
 
 let task;
 
-if (CLIOptions.hasFlag('watch')) {
+if (!CLIOptions.hasFlag('watch')) {
   task = gulp.series(
     buildTask,
     watch
