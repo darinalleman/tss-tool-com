@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-au build && dotnet run
+au build --watch && dotnet run

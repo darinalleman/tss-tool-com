@@ -2,7 +2,7 @@ import gulp from 'gulp';
 import browserSync from 'browser-sync';
 import historyApiFallback from 'connect-history-api-fallback/lib';
 import project from '../aurelia.json';
-import build from './build';
+import {buildTask as build} from './build';
 import {CLIOptions} from 'aurelia-cli';
 
 function log(message) {

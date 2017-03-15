@@ -1,7 +1,9 @@
 <template>
-    <form role="form" submit.delegate="Upload()">
-        <input id="files" type="file" accept=".fit" files.bind="files" class="form-control">
-        <input type="submit" class="btn btn-primary" value="Upload" if.bind="files" />
-        <p if.bind="uploaded">Success!</p>
-    </form>
+    <require from="bootstrap/css/bootstrap.css"></require>
+    <require from="./Upload/upload"></require>
+    <require from="./estimate/estimate"></require>
+    <upload class=""></upload>
+    <estimate class="col-md-4"></estimate>
+    <estimate class="col-md-4"></estimate>
+    <estimate class="col-md-4"></estimate>
 </template>
