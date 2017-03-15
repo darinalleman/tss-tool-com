@@ -19,7 +19,13 @@ namespace WebApplication.Controllers
             try{
                 var form = await Request.ReadFormAsync();
                 Console.WriteLine("In the estimates controller, recieved objects #:" + form.Count);
-                var file = form.Count;
+                var zonesInt = new List<int>();
+                foreach (string z in form.ToDictionary(x => x.Key, x => x.Value).Values.ToArray())
+                {
+                    zonesInt.Add(Convert.ToInt32(z));
+                    Console.WriteLine(zonesInt.Last());
+                }
+                
                 int tss = 0;
                 return Ok(new {tss});//size, FilePath, result });
             }
