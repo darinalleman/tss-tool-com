@@ -4,4 +4,9 @@ sudo: required
 mono: none
 dotnet: 1.0.1
 script:
-  - dotnet restore && dotnet build && cd Test && dotnet test
+  - dotnet restore
+  - dotnet build
+  - cd Test && dotnet test
+  - cd ..
+  - cd tss-tool-com
+  - au build --watch
