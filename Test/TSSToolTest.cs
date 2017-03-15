@@ -47,5 +47,18 @@ namespace Test
             FitFile.Dispose();
         }
 
+        
+        [Fact]
+        public void TestEncode()
+        {
+            TSSTool tool = TSSTool.GetInstance();
+            FileStream FitFile = new FileStream("../../../Assets/TestFile2-MTB.fit", FileMode.Open);
+            FileStream EditedFitFile = new FileStream("../../../Uploads/TestFile-KG-edit.fit", FileMode.Create);
+            Assert.True(tool.EncodeFile(EditedFitFile, FitFile));
+            FitFile.Dispose();
+            EditedFitFile.Dispose();
+        }
+
+
     }
 }
