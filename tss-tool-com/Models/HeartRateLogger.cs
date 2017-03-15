@@ -9,19 +9,13 @@ namespace Models
 
         static readonly HeartRateLogger instance = new HeartRateLogger();
 
-        public static HeartRateLogger Instance
-        {
-            get
-            {
-                return instance;
-            }
-        }
+        public static HeartRateLogger Instance {get;set;}
 
         static HeartRateLogger() 
         {     
         }
 
-        HeartRateLogger()
+        public HeartRateLogger()
         {
             HeartRates = new List<int>();
         }
