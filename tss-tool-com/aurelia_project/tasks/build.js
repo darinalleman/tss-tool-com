@@ -45,4 +45,6 @@ if (!CLIOptions.hasFlag('watch')) {
   task = buildTask;
 }
 
+
+
 export default task;

@@ -1,0 +1,30 @@
+<template>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Add power required to set TSS!</h3>
+        </div>
+        <div class="panel-body">
+             <form role="form" submit.delegate="Submit()">
+                <div class="input-group">
+                    <input value.bind = "tss" type="number" class="form-control" placeholder="TSS" aria-describedby="tss">
+                    <span class="input-group-addon" id="basic-addon1">TSS</span>
+                </div>
+                <br>
+                <div class="input-group">
+                    <input type="number" value.bind = "ftp" class="form-control" placeholder="FTP" aria-describedby="ftp">
+                    <span class="input-group-addon" id="basic-addon1">watts</span>
+                </div>
+                <br>
+                <input type="submit" class="center-block btn btn-primary" value="Write!" />
+            </form>
+             <div if.bind="showNeedFileWarning" class="alert alert-warning alert-dismissible" role="alert">
+                    You need to upload a file first!
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div if.bind="encodeResult" class="alert alert-success alert-dismissible" role="alert">
+                    File edited successfully!
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+        </div>
+    </div>
+</template>

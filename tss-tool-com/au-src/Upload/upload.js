@@ -26,4 +26,9 @@ export class Upload {
   {
     this.uploaded = false;
   }
+
+  getFiles()
+  {
+    return this.files;
+  }
 }
