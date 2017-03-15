@@ -5,12 +5,6 @@ export class UploadService {
  
     constructor(http) {
         this.http = http;
- 
-        this.http.configure(config => {
-            config
-                .useStandardConfiguration()
-                .withBaseUrl('/api/Upload');
-        });
     }
  
     UploadFile(files) {
@@ -18,7 +12,11 @@ export class UploadService {
         for (let i = 0; i < files.length; i++) {
             form.append(`files[${i}]`, files[i]);
         }
-
+        this.http.configure(config => {
+            config
+                .useStandardConfiguration()
+                .withBaseUrl('/api/Upload');
+        });
         return this.http.fetch('', {
            method: "post",
            body: form,

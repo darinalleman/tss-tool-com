@@ -9,7 +9,7 @@ export class EstimateService {
         this.http.configure(config => {
             config
                 .useStandardConfiguration()
-                .withBaseUrl('/api/Estimate');
+                .withBaseUrl('/api/Estimate/Estimate');
         });
     }
  
@@ -18,6 +18,11 @@ export class EstimateService {
         for (let i = 0; i < zones.length; i++) {
             form.append(`zone[${i}]`, zones[i]);
         }
+        this.http.configure(config => {
+            config
+                .useStandardConfiguration()
+                .withBaseUrl('/api/Estimate');
+        });
 
         return this.http.fetch('', {
            method: "post",
