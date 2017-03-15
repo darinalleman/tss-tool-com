@@ -31,6 +31,8 @@ namespace Models
             //add HrMesg listener HeartRateMesgListener
             Broadcaster.RecordMesgEvent += HeartRateMesgListener.MesgEvent;
             Broadcaster.SessionMesgEvent += ElapsedTimeMesgListener.MesgEvent;
+            Broadcaster.MesgEvent += PowerEncoderListener.MesgEvent;
+            Broadcaster.MesgDefinitionEvent += PowerEncoderListener.MesgDefinitionEvent;
 
             Boolean status = decoder.IsFIT(fitSource);
             status &= decoder.CheckIntegrity(fitSource);
@@ -67,54 +69,18 @@ namespace Models
            
         }
 
-        public Boolean EncodeFile(FileStream fitOutput, FileStream fitSource)
+        public Boolean EncodeFile(int TSS, int FTP)
         {
-            Decode decoder = new Decode();
-            MesgBroadcaster DecodeBroadcaster = new MesgBroadcaster();
+            FileStream fitOutput = new FileStream("Uploads/modifiedFile.fit", FileMode.Create);
+            var averagePower = (int) (Math.Sqrt(FTP*FTP*TSS*36/ElapsedTimeLogger.Instance.ElapsedTime));
+            PowerEncoderListener.Instance.Reset(averagePower);
 
-            decoder.MesgEvent += DecodeBroadcaster.OnMesg;
-            decoder.MesgDefinitionEvent += DecodeBroadcaster.OnMesgDefinition;
-
-            //add HrMesg listener HeartRateMesgListener
-            DecodeBroadcaster.MesgEvent += PowerEncoderListener.MesgEvent;
-            DecodeBroadcaster.MesgDefinitionEvent += PowerEncoderListener.MesgDefinitionEvent;
-            
 
 
             Encode encode = new Encode(fitOutput,ProtocolVersion.V10);
-
-            Boolean status = decoder.IsFIT(fitSource);
-            status &= decoder.CheckIntegrity(fitSource);
-
-            Boolean DecodeResult;
-            if (status)
-            {
-                DecodeResult = decoder.Read(fitSource);
-            }
-            else{
-                try
-                    {
-                        Console.WriteLine("Integrity Check Failed {0}", fitSource.Name);
-                        if (decoder.InvalidDataSize)
-                        {
-                            Console.WriteLine("Invalid Size Detected, Attempting to decode...");
-                            DecodeResult = decoder.Read(fitSource);
-                        }
-                        else
-                        {
-                            Console.WriteLine("Attempting to decode by skipping the header...");
-                            DecodeResult = decoder.Read(fitSource, DecodeMode.InvalidHeader);
-                        }
-                    }
-                    catch (FitException ex)
-                    {
-                        Console.WriteLine("DecodeDemo caught FitException: " + ex.Message);
-                        DecodeResult = false;
-                    }
-            }
-            
+                        
             Boolean EncodeResult = false;
-            if (DecodeResult)
+            if (MesgLogger.Instance.Mesgs.Count > 0 )
             {
                 try {
                     foreach (MesgDefinition mesgDef in MesgDefLogger.Instance.Mesgs)
@@ -131,7 +97,7 @@ namespace Models
             }
             encode.Close();
             fitOutput.Dispose();
-            fitSource.Dispose();
+            Console.WriteLine("finishing up in the encode");
             return EncodeResult;
         }
 
