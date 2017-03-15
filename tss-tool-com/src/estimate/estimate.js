@@ -2,11 +2,12 @@ import {EstimateService} from 'services/estimateService'
 
 export class Estimate {
     static inject() { return [EstimateService] };
-    zone1 = "";
-    zone2 = "";
-    zone3 = "";
-    zone4 = "";
-    zone5 = "";
+    zone1 = "162";
+    zone2 = "176";
+    zone3 = "188";
+    zone4 = "200";
+    zone5 = "215";
+    tss = "";
     constructor(EstimateService) {
         this.EstimateService = EstimateService;
     }
@@ -22,7 +23,7 @@ export class Estimate {
         zones.push(this.zone5);
 
         this.EstimateService.Estimate(zones).then(result => {
-
+            this.tss = result.tss;
         });
     }
 }
