@@ -9,6 +9,6 @@ script:
   - cd Test && dotnet test
   - cd .. 
   - cd tss-tool-com
-  - nvm use 6.9.1
+  - nvm use v6.9.1
   - npm install aurelia-cli -g
   - au build --watch
