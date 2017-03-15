@@ -1,10 +1,12 @@
 using System.Collections.Generic;
+using System;
 public static class TSSEstimator
 {
     private static List<HeartRateZone> HeartRateZones;
     private static IList<int> TimeInZones {get;set;}
     public static double FromHeartRate(IList<int> Zones, IList<int> HeartRates)
     {
+        TimeInZones = new List<int>( new int[10] );
         BuildZones(Zones);
         foreach(int HeartRate in HeartRates)
         {
