@@ -9,6 +9,8 @@ export class Encode {
     power = "";
     encodeResult = "";
     showNeedFileWarning = false;
+
+    file = "";
     constructor(EncodeService,Upload) {
         this.EncodeService = EncodeService;
         this.Upload = Upload;
@@ -17,19 +19,17 @@ export class Encode {
     Submit()
     {
         //need some validation before this..?
+        this.files = Upload.getFiles();
         this.EncodeService.Encode(this.tss,this.ftp).then(result => {
-            this.encodeResult = result.encodeResult;
-            if (this.encodeResult)
-            {
-                var pom = document.createElement('a');
-                pom.setAttribute('href', 'Uploads/modifiedFile.fit');
-                pom.setAttribute('download', 'ModifiedFile.fit');
-                console.log(pom.getAttribute('href'));
-                pom.style.display = 'none';
-                document.body.appendChild(pom);
-                pom.click();
-                // document.body.removeChild(pom);
-            }
+            this.file = result.file;
+            var pom = document.createElement('a');
+            pom.setAttribute('href', '~/modifiedFile.fit');
+            pom.setAttribute('download', 'modifiedFile.fit');
+            console.log(pom.getAttribute('href'));
+            pom.style.display = 'none';
+            document.body.appendChild(pom);
+            pom.click();
+            // document.body.removeChild(pom);
         });
         
     }
