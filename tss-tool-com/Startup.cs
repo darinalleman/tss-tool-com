@@ -44,6 +44,8 @@ namespace WebApplication
 
             services.AddMvc();
 
+            services.AddDirectoryBrowser();
+
             // Add application services.
             // services.AddTransient<IEmailSender, AuthMessageSender>();
             // services.AddTransient<ISmsSender, AuthMessageSender>();
@@ -77,6 +79,8 @@ namespace WebApplication
             {
 
             });
+
+             app.UseFileServer(enableDirectoryBrowsing: true);
         }
     }
 }
