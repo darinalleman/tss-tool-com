@@ -7,6 +7,7 @@ script:
   - dotnet restore
   - dotnet build
   - cd Test && dotnet test
-  - cd .. && cd tss-cool-com
+  - cd .. 
+  - cd tss-tool-com
   - npm install aurelia-cli -g
   - au build --watch
