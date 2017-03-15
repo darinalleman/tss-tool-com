@@ -23,11 +23,9 @@ namespace WebApplication.Controllers
                 foreach (string z in form.ToDictionary(x => x.Key, x => x.Value).Values.ToArray())
                 {
                     zonesInt.Add(Convert.ToInt32(z));
-                    Console.WriteLine(zonesInt.Last());
                 }
-                
-                int tss = 0;
-                return Ok(new {tss});//size, FilePath, result });
+                var tss = TSSEstimator.FromHeartRate(zonesInt, HeartRateLogger.Instance.HeartRates);
+                return Ok((new { tss }));
             }
             catch (Exception ex) {
                 var originalMessage = ex.Message;

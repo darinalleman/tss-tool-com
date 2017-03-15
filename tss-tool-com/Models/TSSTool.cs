@@ -38,7 +38,7 @@ namespace Models
             Boolean DecodeResult;
             if (status)
             {
-                HeartRateLogger.Instance = new HeartRateLogger();
+                HeartRateLogger.Instance.Reset();
                 DecodeResult = decoder.Read(fitSource);
             }
             else{
