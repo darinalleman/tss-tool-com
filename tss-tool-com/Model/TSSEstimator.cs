@@ -2,15 +2,14 @@ using System.Collections.Generic;
 using System;
 public static class TSSEstimator
 {
-    private static List<HeartRateZone> HeartRateZones;
-    private static IList<int> TimeInZones {get;set;}
+    private static IList<int> TimeInZones;
     public static double FromHeartRate(IList<int> Zones, IList<int> HeartRates)
     {
         TimeInZones = new List<int>( new int[10] );
-        BuildZones(Zones);
+        IList<HeartRateZone> HeartRateZones = BuildZones(Zones);
         foreach(int HeartRate in HeartRates)
         {
-            AssignZone(HeartRate);
+            AssignZone(HeartRate, HeartRateZones);
         }
 		double TSS = 0;
 		TSS += TimeInZones[0] * (20.0 / 3600);
@@ -28,9 +27,9 @@ public static class TSSEstimator
     /**
     http://home.trainingpeaks.com/blog/article/estimating-training-stress-score-tss
      */
-    private static void BuildZones(IList<int> Zones)
+    private static IList<HeartRateZone> BuildZones(IList<int> Zones)
     {
-        HeartRateZones = new List<HeartRateZone>();
+        IList<HeartRateZone> HeartRateZones = new List<HeartRateZone>();
         HeartRateZone Zone1 = new HeartRateZone(0, Zones[0] - 40);
         HeartRateZones.Add(Zone1);
         HeartRateZone Zone2 = new HeartRateZone(Zone1.End+1, Zones[0] - 10);
@@ -51,9 +50,10 @@ public static class TSSEstimator
         HeartRateZones.Add(Zone9);
         HeartRateZone Zone10 = new HeartRateZone(Zone9.End+1,  Zones[4]);
         HeartRateZones.Add(Zone10);
+        return HeartRateZones;
     }
 
-    private static void AssignZone(int HeartRate)
+    private static void AssignZone(int HeartRate, IList<HeartRateZone> HeartRateZones)
     {
         for (int i = 0; i < HeartRateZones.Count; i++)
         {
