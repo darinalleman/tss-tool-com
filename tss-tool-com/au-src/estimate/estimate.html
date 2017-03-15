@@ -1,0 +1,41 @@
+<template>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Estimate TSS from your heart rate!</h3>
+        </div>
+        <div class="panel-body">
+            <p>Enter the highest BPM in each of your zones.</p>
+            <p>For example, my zone 3 ends at 160bpm. Zone 3 = 160bpm and Zone 5 = my max heart rate.</p>
+             <form role="form" submit.delegate="Submit()">
+                <div class="input-group">
+                    <input value.bind = "zone1" type="number" class="form-control" placeholder="Zone 1" aria-describedby="zone1">
+                    <span class="input-group-addon" id="basic-addon1">bpm</span>
+                </div>
+                <br>
+                <div class="input-group">
+                    <input type="number" value.bind = "zone2" class="form-control" placeholder="Zone 2" aria-describedby="zone2">
+                    <span class="input-group-addon" id="basic-addon1">bpm</span>
+                </div>
+                <br>
+                <div class="input-group">
+                    <input type="number" value.bind = "zone3" class="form-control" placeholder="Zone 3" aria-describedby="zone3">
+                    <span class="input-group-addon" id="basic-addon1">bpm</span>
+                </div>
+                <br>
+                <div class="input-group">
+                    <input type="number" value.bind = "zone4" class="form-control" placeholder="Zone 4" aria-describedby="zone4">
+                    <span class="input-group-addon" id="basic-addon1">bpm</span>
+                </div>
+                <br>
+                <div class="input-group">
+                    <input type="number" value.bind = "zone5" class="form-control" placeholder="Zone 5" aria-describedby="zone5">
+                    <span class="input-group-addon" id="basic-addon1">bpm</span>
+                </div>
+                <br>
+                <input type="submit" class="center-block btn btn-primary" value="Estimate!" />
+            </form>
+            <p if.bind="tss">Your estimated TSS is ${tss}</p>
+        </div>
+    </div>
+   
+</template>

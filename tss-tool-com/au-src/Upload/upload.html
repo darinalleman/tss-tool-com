@@ -1,0 +1,28 @@
+<template>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Upload your .FIT file</h3>
+        </div>
+        <div class="panel-body">
+            <form role="form" submit.delegate="Upload()">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <input class="btn btn-default" id="files" type="file" accept=".fit" files.bind="files" class="form-control" />
+                        </div><!-- /input-group -->
+                    </div><!-- /.col-lg-6 -->
+                    <div class="col-md-2">
+                        <div class="input-group">
+                            <input type="submit" class="btn btn-primary" value="Upload" if.bind="files" />
+                        </div><!-- /input-group -->
+                    </div><!-- /.col-lg-6 -->
+                </div><!-- /.row -->
+                <br>
+                <div if.bind="uploaded" class="alert alert-success alert-dismissible" role="alert">
+                    File uploaded successfully!
+                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</template>

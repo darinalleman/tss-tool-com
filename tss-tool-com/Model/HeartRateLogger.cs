@@ -7,18 +7,24 @@ namespace Models
     {
         public IList<int> HeartRates {get;}
 
-        static readonly HeartRateLogger instance = new HeartRateLogger();
+        static volatile HeartRateLogger instance;
 
         public static HeartRateLogger Instance
         {
-            get
+            get 
             {
+                object syncRoot = new Object();
+                if (instance == null) 
+                {
+                    lock (syncRoot) 
+                    {
+                    if (instance == null) 
+                        instance = new HeartRateLogger();
+                    }
+                }
+
                 return instance;
             }
-        }
-
-        static HeartRateLogger() 
-        {     
         }
 
         HeartRateLogger()
@@ -29,6 +35,11 @@ namespace Models
         public void Log(int HeartRate)
         {
             HeartRates.Add(HeartRate);
+        }
+
+        public void Reset()
+        {
+            instance = new HeartRateLogger();
         }
     }
 }

@@ -1,6 +1,6 @@
 import { HttpClient } from 'aurelia-fetch-client';
  
-export class UploadService {
+export class EstimateService {
     static inject() { return [HttpClient] };
  
     constructor(http) {
@@ -9,15 +9,20 @@ export class UploadService {
         this.http.configure(config => {
             config
                 .useStandardConfiguration()
-                .withBaseUrl('/api/Upload');
+                .withBaseUrl('/api/Estimate/Estimate');
         });
     }
  
-    UploadFile(files) {
+    Estimate(zones) {
        var form = new FormData();
-        for (let i = 0; i < files.length; i++) {
-            form.append(`files[${i}]`, files[i]);
+        for (let i = 0; i < zones.length; i++) {
+            form.append(`zone[${i}]`, zones[i]);
         }
+        this.http.configure(config => {
+            config
+                .useStandardConfiguration()
+                .withBaseUrl('/api/Estimate');
+        });
 
         return this.http.fetch('', {
            method: "post",

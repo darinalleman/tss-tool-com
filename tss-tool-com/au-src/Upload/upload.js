@@ -1,7 +1,9 @@
 import {UploadService} from 'services/uploadService'
+import {observable} from "aurelia-framework";
 
-export class App {
+export class Upload {
   static inject() { return [UploadService] };
+  @observable
   files = null;
   UploadService;
   uploaded;
@@ -18,5 +20,10 @@ export class App {
             this.uploaded = true;
           }
       });
+  }
+
+  filesChanged(newValue, oldValue)
+  {
+    this.uploaded = false;
   }
 }
