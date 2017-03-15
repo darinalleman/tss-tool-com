@@ -17,19 +17,19 @@
         "transform-es2015-modules-amd"
       ]
     },
-    "source": "src/**/*.js"
+    "source": "au-src/**/*.js"
   },
   "markupProcessor": {
     "id": "none",
     "displayName": "None",
     "fileExtension": ".html",
-    "source": "src/**/*.html"
+    "source": "au-src/**/*.html"
   },
   "cssProcessor": {
     "id": "sass",
     "displayName": "Sass",
     "fileExtension": ".scss",
-    "source": "src/**/*.scss"
+    "source": "au-src/**/*.scss"
   },
   "editor": {
     "id": "visualstudio",
@@ -41,12 +41,12 @@
     "source": "test/unit/**/*.js"
   },
   "paths": {
-    "root": "src",
-    "resources": "src/resources",
-    "elements": "src/resources/elements",
-    "attributes": "src/resources/attributes",
-    "valueConverters": "src/resources/value-converters",
-    "bindingBehaviors": "src/resources/binding-behaviors"
+    "root": "au-src",
+    "resources": "au-src/resources",
+    "elements": "au-src/resources/elements",
+    "attributes": "au-src/resources/attributes",
+    "valueConverters": "au-src/resources/value-converters",
+    "bindingBehaviors": "au-src/resources/binding-behaviors"
   },
   "testFramework": {
     "id": "jasmine",
