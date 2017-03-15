@@ -71,7 +71,7 @@ namespace Models
 
         public Boolean EncodeFile(int TSS, int FTP)
         {
-            FileStream fitOutput = new FileStream("Uploads/modifiedFile.fit", FileMode.Create);
+            FileStream fitOutput = new FileStream("wwwroot/files/modifiedFile.fit", FileMode.Create);
             var averagePower = (int) (Math.Sqrt(FTP*FTP*TSS*36/ElapsedTimeLogger.Instance.ElapsedTime));
             PowerEncoderListener.Instance.Reset(averagePower);
 
